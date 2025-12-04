@@ -1,0 +1,9 @@
+seed: 0
+
+sensor:
+  enabled_modalities: [state, rgb, depth, pc, imu]
+  camera_list: [head_left, head_right, left_wrist, right_wrist] # head_left, head_right, left_wrist, right_wrist
+
+control:
+  # left_arm, right_arm, torso, odom, head
+  enabled_groups: [left_arm, right_arm, torso, odom, head]
