@@ -1,0 +1,12 @@
+data_original/
+*.mcap
+
+data/
+
+data_example/
+
+output/
+
+output_demo/
+
+output_vis/
