@@ -1,0 +1,40 @@
+seed: 0
+
+sensor:
+  enabled_modalities: [state, rgb, depth, pc, imu]
+  camera_list: [head_left, head_right, left_wrist, right_wrist] # head_left, head_right, left_wrist, right_wrist
+
+control:
+  # left_arm, right_arm, torso, odom, head
+  enabled_groups: [left_arm, right_arm, torso, odom, head]
+
+algo:
+  name: diffusion_policy
+
+  # Diffusion Policy
+  lr: 1e-4
+  batch_size: 64
+
+  obs_horizon: 1                # Seems not very important in ManiSkill, 1, 2, 4 work well
+  act_horizon: 4                # Seems not very important in ManiSkill, 4, 8, 15 work well
+  state_dim: 11
+  action_dim: 11
+
+  pred_horizon: 8              # 16->8 leads to worse performance, maybe it is like generate a half image; 16->32, improvement is very marginal
+  diffusion_step_embed_dim: 64  # not very important
+  unet_dims: [64, 128, 256]     # default setting is about ~4.5M params
+  n_groups: 8                   # jigu says it is better to let each group have at least 8 channels; it seems 4 and 8 are similar
+
+  # Dataset
+  data_dir_fp: ~/.manisill/data/scene_datasets/replica_cad_dataset/rearrange-dataset/tidy_hosue/pick
+  trajs_per_obj: all
+  max_image_cache_size: 0
+  num_dataload_workers: 0
+
+  # Experiment
+  num_iterations: 1_000_000
+  log_freq: 30
+  eval_freq: 500
+  save_freq: 500
+  torch_deterministic: True
+  save_backup_ckpts: True
